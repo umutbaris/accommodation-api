@@ -25,10 +25,11 @@ class CreateHotelRequest extends FormRequest
     {
         return [
             'name'    =>  'required|min:10',
-            'rating'    => 'required|integer|between:1,5',
+            'rating'    => 'required|integer|between:0,5',
             'reputation'    => 'required|integer|between:0,1000',
             'price'    => 'required|integer',
             'availability'    => 'required|integer',
+            'image'    => 'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
         ];
     }
 }
