@@ -5,8 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Category extends Model
+class Location extends Model
 {
     use SoftDeletes;
 
@@ -16,8 +15,10 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'slug'
+        'city',
+        'state',
+        'country',
+        'zip_code',
     ];
 
     protected $hidden = [
