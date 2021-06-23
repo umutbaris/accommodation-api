@@ -15,10 +15,18 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments ('id');
+            $table->integer ('hotel_id')->unsigned();
             $table->string('city');
             $table->string('state');
             $table->string('country');
             $table->integer('zip_code')->length(5);
+
+            $table->foreign('hotel_id')
+                ->references('id')
+                ->on('hotels')
+                ->onDelete('cascade');
+
+
             $table->softDeletes();
             $table->timestamps();
         });

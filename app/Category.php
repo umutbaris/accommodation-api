@@ -25,4 +25,12 @@ class Category extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    /**
+     * Get the hotels for the category.
+     */
+    public function hotels()
+    {
+        return $this->hasMany(Hotels::class);
+    }
 }

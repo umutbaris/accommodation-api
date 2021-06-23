@@ -15,6 +15,7 @@ class Location extends Model
      * @var array
      */
     protected $fillable = [
+        'hotel_id',
         'city',
         'state',
         'country',
@@ -26,4 +27,13 @@ class Location extends Model
         'updated_at',
         'deleted_at'
     ];
+
+
+    /**
+     * Get the hotel that owns the location.
+     */
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class, 'foreign_key');
+    }
 }
