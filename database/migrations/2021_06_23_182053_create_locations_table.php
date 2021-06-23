@@ -26,7 +26,6 @@ class CreateLocationsTable extends Migration
                 ->on('hotels')
                 ->onDelete('cascade');
 
-
             $table->softDeletes();
             $table->timestamps();
         });

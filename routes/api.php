@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\HotelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +20,9 @@ use App\Http\Controllers\Api\UserController;
 
 
 Route::group(['namespace' => 'Api'], function () {
+    Route::get('/items', 'HotelController@index');
+    Route::get('/items/{id}', 'HotelController@show');
+    Route::post('/items', 'HotelController@create');
+    Route::put('/items/{id}', 'HotelController@update');
+    Route::delete('/items/{id}', 'HotelController@destroy');
 });
