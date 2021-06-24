@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\BannedWords;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class CreateHotelRequest extends FormRequest
 {
@@ -24,7 +27,11 @@ class CreateHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    =>  'required|min:10',
+            'name'    =>  [
+                'required',
+                'min:10',
+                new BannedWords()
+            ],
             'rating'    => 'required|integer|between:0,5',
             'reputation'    => 'required|integer|between:0,1000',
             'price'    => 'required|integer',
