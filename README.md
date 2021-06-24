@@ -3,7 +3,7 @@
 **Technologies used**
 - Docker
 - PHP 7.2
-- Laravel Framework 6.0
+- Laravel Framework 7.0
 - MySQL
 - Nginx 
 
