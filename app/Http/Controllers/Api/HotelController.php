@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Requests\CreateHotelRequest;
+use App\Http\Requests\UpdateHotelRequest;
 use App\Repositories\HotelRepository;
 
 class HotelController extends BaseApiController
@@ -62,10 +63,10 @@ class HotelController extends BaseApiController
      * Update information of item
      *
      * @param  int  $id
-     * @param  Request  $request
+     * @param  UpdateHotelRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(int $id, Request $request)
+    public function update(int $id, UpdateHotelRequest $request)
     {
         $hotel = $this->hotelRepository->update($id, $request->all());
         return $this->sendSuccess($hotel);
