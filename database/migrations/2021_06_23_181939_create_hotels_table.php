@@ -20,7 +20,7 @@ class CreateHotelsTable extends Migration
             $table->string('name');
             $table->integer('rating');
             $table->integer('reputation');
-            $table->string('reputationBadge');
+            $table->string('reputation_badge');
             $table->integer('availability');
             $table->integer('price');
             $table->string('image');

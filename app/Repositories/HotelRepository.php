@@ -15,7 +15,7 @@ class HotelRepository extends BaseRepository
      */
     public function store($data) {
         try {
-            $data['reputationBadge'] = $this->calculateReputationBadge($data['reputation']);
+            $data['reputation_badge'] = $this->calculateReputationBadge($data['reputation']);
             $hotel = parent::store($data);
             $hotel->location()->create($data['location']);
         } catch (Exception $e) {

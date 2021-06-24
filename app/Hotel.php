@@ -20,7 +20,7 @@ class Hotel extends Model
         'name',
         'rating',
         'reputation',
-        'reputationBadge',
+        'reputation_badge',
         'availability',
         'price',
         'image',
