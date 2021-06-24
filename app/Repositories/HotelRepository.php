@@ -24,6 +24,27 @@ class HotelRepository extends BaseRepository
 
         return $hotel;
     }
+
+
+    /**
+     * @param  array  $data
+     * @return mixed
+     */
+    public function update($id, $data) {
+        $instance = $this->find($id);
+        if ($instance === null) {
+            return null;
+        }
+        if (isset($data['reputation'])) {
+            $data['reputation_badge'] = $this->calculateReputationBadge($data['reputation']);
+        }
+
+        $instance->fill($data);
+        $instance->save();
+        return $instance;
+
+        return $hotel;
+    }
     
     /**
      * The reputation badge is a calculated value that depends on the reputation
