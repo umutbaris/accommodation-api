@@ -15,6 +15,7 @@ class Hotel extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'category_id',
         'name',
         'rating',
@@ -42,6 +43,14 @@ class Hotel extends Model
     ];
 
     /**
+     * Get the user for the hotels.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * Get the attributes for the hotels.
      */
     public function category()
@@ -64,5 +73,4 @@ class Hotel extends Model
     {
         return $this->hasMany(Booking::class);
     }
-
 }

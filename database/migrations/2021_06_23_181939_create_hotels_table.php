@@ -16,6 +16,7 @@ class CreateHotelsTable extends Migration
         Schema::create('hotels', function (Blueprint $table) {
             $table->increments ('id');
             $table->integer ('category_id')->unsigned();
+            $table->integer ('user_id')->unsigned();
             $table->string('name');
             $table->integer('rating');
             $table->integer('reputation');
@@ -27,6 +28,10 @@ class CreateHotelsTable extends Migration
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
 
             $table->softDeletes();
             $table->timestamps();

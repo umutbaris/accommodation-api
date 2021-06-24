@@ -30,6 +30,7 @@ class CreateHotelRequest extends FormRequest
             'name'    =>  [
                 'required',
                 'min:10',
+                'unique:hotels',
                 new BannedWords()
             ],
             'rating'    => 'required|integer|between:0,5',

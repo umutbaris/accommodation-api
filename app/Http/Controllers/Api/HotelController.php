@@ -55,6 +55,7 @@ class HotelController extends BaseApiController
      */
     public function create(CreateHotelRequest $request)
     {
+        $request->merge(['user_id' => $request->user()->id]);
         $hotel = $this->hotelRepository->store($request->all());
         return $this->sendSuccess($hotel, 201);
     }
