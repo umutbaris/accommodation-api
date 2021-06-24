@@ -25,4 +25,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::post('/items', 'HotelController@create');
     Route::put('/items/{id}', 'HotelController@update');
     Route::delete('/items/{id}', 'HotelController@destroy');
+
+    Route::post('/bookings', 'BookingController@create');
+
 });

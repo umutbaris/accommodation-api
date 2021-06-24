@@ -25,12 +25,18 @@ class Hotel extends Model
         'image',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $hidden = [
         'created_at',
         'updated_at',
         'deleted_at'
     ];
 
+    /**
+     * @var string[]
+     */
     protected $with = [
         'location'
     ];
@@ -49,6 +55,14 @@ class Hotel extends Model
     public function location()
     {
         return $this->hasOne(Location::class);
+    }
+
+    /**
+     * Get the location associated with the hotel.
+     */
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 
 }
