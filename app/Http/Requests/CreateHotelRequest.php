@@ -37,6 +37,7 @@ class CreateHotelRequest extends FormRequest
             'price'    => 'required|integer',
             'availability'    => 'required|integer',
             'image'    => 'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            'location.zip_code' => 'required|digits:5'
         ];
     }
 }

@@ -31,6 +31,10 @@ class Hotel extends Model
         'deleted_at'
     ];
 
+    protected $with = [
+        'location'
+    ];
+
     /**
      * Get the attributes for the hotels.
      */
