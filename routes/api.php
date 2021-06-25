@@ -19,15 +19,14 @@ use App\Http\Controllers\Auth\AuthController;
         /**
          * Login
          */
-        Route::post('/login', 'AuthController@login');
+        Route::post('/login', 'AuthController@login')->name('login');
     });
 
     Route::group(['namespace' => 'Api'], function () {
-
         /**
          * Bookings
          */
-        Route::post('/bookings', 'BookingController@create');
+        Route::post('/bookings', 'BookingController@create')->name('booking');
 
     });
 
@@ -40,7 +39,7 @@ use App\Http\Controllers\Auth\AuthController;
             /**
              * Logout
              */
-            Route::post('/logout', 'AuthController@logout');
+            Route::post('/logout', 'AuthController@logout')->name('logout');
 
         });
 
@@ -48,10 +47,10 @@ use App\Http\Controllers\Auth\AuthController;
         /**
          * Hotels
          */
-        Route::get('/items', 'HotelController@index');
-        Route::get('/items/{id}', 'HotelController@show');
-        Route::post('/items', 'HotelController@create');
-        Route::put('/items/{id}', 'HotelController@update');
-        Route::delete('/items/{id}', 'HotelController@destroy');
+        Route::get('/items', 'HotelController@index')->name('getHotels');
+        Route::get('/items/{id}', 'HotelController@show')->name('getHotel');
+        Route::post('/items', 'HotelController@create')->name('postHotel');
+        Route::put('/items/{id}', 'HotelController@update')->name('updateHotel');
+        Route::delete('/items/{id}', 'HotelController@destroy')->name('deleteHotel');
     });
 });
