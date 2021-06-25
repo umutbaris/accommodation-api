@@ -1,0 +1,396 @@
+openapi: 3.0.0
+servers:
+  - url: 'http://localhost'
+    description: ''
+    variables: {}
+info:
+  version: b7552eb5-14fd-4891-9898-67f53e905146
+  title: accommodation
+  description: ''
+  termsOfService: ''
+  contact: {}
+  license:
+    name: ''
+paths:
+  /api/login:
+    post:
+      summary: Login
+      operationId: Login
+      parameters: []
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: superuser@example.com
+                  password: superuser123
+              example: |-
+                {
+                        "success": true,
+                        "data" : {
+                          "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvbG9naW4iLCJpYXQiOjE2MjQ2MDc2NjAsImV4cCI6MTYyNDYxMTI2MCwibmJmIjoxNjI0NjA3NjYwLCJqdGkiOiJKV0lVb3ZLQmdjM2FqenptIiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.3vCvHaXCVyy6m-NasbIpe-nz8_1f34h1mEhDC6Drsxk",
+                          "expiration": "07:54:21"
+                          },
+                        "password": "superuser123"
+                }
+          headers: {}
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              example:
+                email: superuser@example.com
+                password: superuser123
+            example: |-
+              {
+                      "email": "superuser@example.com",
+                      "password": "superuser123"
+              }
+      tags:
+        - Authentication
+  /api/logout:
+    post:
+      summary: Logout
+      operationId: Logout
+      parameters: []
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: superuser@example.com
+                  password: superuser123
+              example: |-
+                {
+                        "success": true,
+                        "data" : []
+                }
+          headers: {}
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              example:
+                token: >-
+                  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvbG9naW4iLCJpYXQiOjE2MjQ1NDMyNDAsImV4cCI6MTYyNDU0Njg0MCwibmJmIjoxNjI0NTQzMjQwLCJqdGkiOiJPa1FOdTY3ZTlXNFptY2Y3Iiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.8DmX72ukhtqNLzcpVxNhtybnCZhVLHva0rtV_T0w540
+            example: |-
+              {
+                  "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvbG9naW4iLCJpYXQiOjE2MjQ1NDMyNDAsImV4cCI6MTYyNDU0Njg0MCwibmJmIjoxNjI0NTQzMjQwLCJqdGkiOiJPa1FOdTY3ZTlXNFptY2Y3Iiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.8DmX72ukhtqNLzcpVxNhtybnCZhVLHva0rtV_T0w540"
+              }
+      tags:
+        - Authentication
+  /api/items:
+    post:
+      summary: Create Hotel
+      operationId: CreateHotel
+      parameters: []
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: superuser@example.com
+                  password: superuser123
+              example: |-
+                {
+                        "success": true,
+                        "data" : {
+                          "category_id" : 1,
+                          "name": "ubk Hotel Name",
+                          "rating": 0,
+                          "reputation": 900,
+                          "availability": 1,
+                          "price": 1,
+                          "image": "https://www.com",
+                          "user_id": 1,
+                          "reputation_badge": "green",
+                          "id": 2
+                        }
+                }
+            headers: {}
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              example:
+                category_id: 1
+                name: ubk Hotel Name
+                rating: 0
+                reputation: 900
+                availability: 1
+                price: 1
+                image: 'https://www.com'
+                location:
+                  city: Cuernavaca
+                  state: Morelos
+                  country: Mexico
+                  zip_code: '12345'
+            example: |-
+              {
+                      "category_id": 1,
+                      "name" : "ubk Hotel Name",
+                      "rating" : 0,
+                      "reputation" : 900,
+                      "availability" : 1,
+                      "price" : 1,
+                      "image" : "https://www.com",
+                      "location" : {
+                          "city": "Cuernavaca",
+                          "state": "Morelos",
+                          "country": "Mexico",
+                          "zip_code": "12345"
+                      }
+              }
+      tags:
+        - Items
+    get:
+      summary: Get Hotels
+      operationId: GetHotels
+      parameters: []
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: superuser@example.com
+                  password: superuser123
+              example: |-
+                {
+                        "success": true,
+                        "data" : [
+                          {
+                            "id" : 1,
+                            "category_id": 1,
+                            "user_id": 1,
+                            "name": "Test Hotel Name",
+                            "rating": 0,
+                            "reputation": 900,
+                            "reputation_badge": "green",
+                            "availability": 0,
+                            "price": 1,
+                            "image": "https://www.com",
+                            "location": {
+                              "id": 1,
+                              "hotel_id": 1,
+                              "city": "Cuernavaca",
+                              "state": "Morelos",
+                              "country": "Mexico",
+                              "zip_code": 12345
+                            }
+                          },
+                          {
+                            "id": 2,
+                            "category_id": 1,
+                            "user_id": 1,
+                            "name": "Test Hotel Name222",
+                            "rating": 0,
+                            "reputation": 300,
+                            "reputation_badge": "red",
+                            "availability": 0,
+                            "price": 10,
+                            "image": "https://www.awsimageurl.com",
+                            "location": {
+                              "id": 2,
+                              "hotel_id": 2,
+                              "city": "Istanbul",
+                              "state": "Kadikoy",
+                              "country": "Turkey",
+                              "zip_code": 34345
+                            }
+
+                          }
+                          ]
+                }
+            headers: {}
+      tags:
+        - Items
+  '/api/items/{id}':
+    get:
+      summary: Get Hotel
+      operationId: GetHotel
+      parameters:
+        - name: id
+          in: path
+          description: ID of items to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: superuser@example.com
+                  password: superuser123
+              example: |-
+                {
+                        "success": true,
+                        "data" : {
+                          "category_id" : 1,
+                          "name": "ubk Hotel Name",
+                          "rating": 0,
+                          "reputation": 900,
+                          "availability": 1,
+                          "price": 1,
+                          "image": "https://www.com",
+                          "user_id": 1,
+                          "reputation_badge": "green",
+                          "id": 2
+                        }
+                }
+            headers: {}
+      tags:
+        - Items
+    put:
+      summary: Update Hotel
+      operationId: UpdateHotel
+      parameters:
+        - name: id
+          in: path
+          description: ID of items to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: superuser@example.com
+                  password: superuser123
+              example: |-
+                {
+                        "success": true,
+                        "data" : {
+                          "category_id" : 1,
+                          "name": "ubk Hotel Name",
+                          "rating": 0,
+                          "reputation": 900,
+                          "availability": 1,
+                          "price": 1,
+                          "image": "https://www.com",
+                          "user_id": 1,
+                          "reputation_badge": "green",
+                          "id": 2
+                        }
+                }
+            headers: {}
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              example:
+                reputation: 900
+            example: |-
+              {
+                      "reputation" : 900
+              }
+      tags:
+        - Items
+    delete:
+      summary: Delete Hotel
+      operationId: DeleteHotel
+      parameters:
+        - name: id
+          in: path
+          description: ID of items to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'OK'
+          headers: {}
+      tags:
+        - Items
+  /api/bookings:
+    post:
+      summary: Create Booking
+      operationId: CreateBooking
+      parameters: []
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: superuser@example.com
+                  password: superuser123
+              example: |-
+                {
+                        "success": true,
+                        "data" : {
+                          "hotel_id": 1,
+                          "name": "Umut",
+                          "surname": "Karasar",
+                          "check_in": "2021-12-12",
+                          "check_out": "2021-12-13",
+                          "id": 2
+                        }
+                }
+            headers: {}
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              example:
+                hotel_id: 1
+                name: Umut
+                surname: Karasar
+                check_in: '2021-12-12'
+                check_out: '2021-12-13'
+            example: |-
+              {
+                      "hotel_id": 1,
+                      "name": "Umut",
+                      "surname" : "Karasar",
+                      "check_in": "2021-12-12",
+                      "check_out": "2021-12-13"
+              }
+      tags:
+        - Booking
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security:
+  - bearer: []
+tags: []
+externalDocs:
+  url: ''
+  description: ''
+warnings: []
