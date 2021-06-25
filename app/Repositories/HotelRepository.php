@@ -24,8 +24,7 @@ class HotelRepository extends BaseRepository
 
         return $hotel;
     }
-
-
+    
     /**
      * @param  array  $data
      * @return mixed
@@ -45,7 +44,17 @@ class HotelRepository extends BaseRepository
 
         return $hotel;
     }
-    
+
+    /**
+     * @param $id
+     * @param $userId
+     * @return mixed
+     */
+    public function findHotelWithAuthentication($id, $userId) {
+        $instance = $this->getNewInstance();
+        return $instance->where(['id'=>$id, 'user_id'=>$userId])->get();
+    }
+
     /**
      * The reputation badge is a calculated value that depends on the reputation
      *

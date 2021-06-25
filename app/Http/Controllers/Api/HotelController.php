@@ -38,15 +38,18 @@ class HotelController extends BaseApiController
         return $this->sendSuccess($hotels);
     }
 
+
     /**
-     * Get a single item
-     *
      * @param  int  $id
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(int $id)
+    public function show(int $id, Request $request)
     {
-        $hotel = $this->hotelRepository->find($id);
+        $hotel = $this->hotelRepository->findHotelWithAuthentication($id, $request->user()->id);
+        if ($hotel->isEmpty()){
+            return $this->sendError('Unauthorized to see that item', 401);
+        }
         return $this->sendSuccess($hotel);
     }
 

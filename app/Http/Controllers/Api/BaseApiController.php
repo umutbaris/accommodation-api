@@ -27,7 +27,7 @@ class BaseApiController extends Controller
         ], $statusCode);
     }
 
-    public function sendError($error, $statusCode = 200, $errorType='') {
+    public function sendError($error, $statusCode = 400, $errorType='') {
         $response = [
             'success' => false,
             'error' => $error
