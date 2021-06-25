@@ -33,7 +33,7 @@ class HttpAuthTest extends TestCase
     }
 
     /**
-     * Test to api authorized
+     * Test to api login
      *
      * @return void
      */
@@ -53,7 +53,7 @@ class HttpAuthTest extends TestCase
     }
 
     /**
-     * Test to api authorized
+     * Test to api logout
      *
      * @return void
      */
@@ -74,7 +74,7 @@ class HttpAuthTest extends TestCase
     }
 
     /**
-     * Test to api authorized
+     * Test to api logout wrong token
      *
      * @return void
      */
