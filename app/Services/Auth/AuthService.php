@@ -1,15 +1,25 @@
 <?php
 
 
-namespace App\Services;
+namespace App\Services\Auth;
 
 
-use Illuminate\Support\Facades\Auth;
+use App\Services\Auth\JwtService;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
 
 class AuthService
 {
+
+    /**
+     * AuthService constructor.
+     * @param  JwtService  $jwtService
+     */
+    public function __construct(JwtService $jwtService)
+    {
+        $this->jwtService = $jwtService;
+    }
+
     /**
      * @param  array  $credentials
      * @return array[]
@@ -17,10 +27,7 @@ class AuthService
     public function loginUser(array $credentials)
     {
         try {
-            if (!$token = $this->getToken($credentials)) {
-                activity()
-                    ->withProperties(['user' => $credentials['email']])
-                    ->log('admin_login_failed');
+            if (!$token = $this->jwtService->getToken($credentials)) {
                 return [
                     'error' => [
                         'status_code' => 401,
@@ -50,10 +57,6 @@ class AuthService
      */
     public function loginSuccessful($token)
     {
-        activity()
-            ->causedBy(Auth::user())
-            ->log('superadmin_login');
-
         $login_time = now();
         $expiration_time = strtotime($login_time) + env('JWT_TTL');
 
@@ -73,8 +76,7 @@ class AuthService
     {
         try {
             // Attempt to invalidate the JWT token
-            JWTAuth::parseToken()->invalidate($token);
-
+            $this->jwtService->parseToken($token);
             return [];
         } catch (JWTException $e) {
             // Something went wrong with invalidating the token
@@ -86,13 +88,4 @@ class AuthService
             ];
         }
     }
-
-    /**
-     * @param  array  $credentials
-     * @return mixed
-     */
-    public function getToken(array $credentials) {
-        return JWTAuth::attempt($credentials);
-    }
-
 }
