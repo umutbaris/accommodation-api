@@ -55,6 +55,11 @@ class AuthServiceTest extends TestCase
         $this->assertArrayHasKey('error', $result);
     }
 
+    /**
+     * Unit test to check logout response
+     *
+     * @return void
+     */
     public function testLogoutUser() {
         $jwtService = $this->createMock(JwtService::class);
         $jwtService->method('parseToken');
