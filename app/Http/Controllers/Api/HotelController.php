@@ -4,9 +4,11 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Hotel;
 use App\Http\Requests\CreateHotelRequest;
 use App\Http\Requests\UpdateHotelRequest;
 use App\Repositories\HotelRepository;
+use Illuminate\Http\Request;
 
 class HotelController extends BaseApiController
 {
@@ -25,13 +27,14 @@ class HotelController extends BaseApiController
     }
 
     /**
-     * Get all the items for the given hotelier
      *
+     * Get all the items for the given hotelier
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $hotels = $this->hotelRepository->all();
+        $hotels = $this->hotelRepository->findBy('user_id', $request->user()->id);
         return $this->sendSuccess($hotels);
     }
 
