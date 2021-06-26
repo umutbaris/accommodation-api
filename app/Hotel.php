@@ -30,10 +30,21 @@ class Hotel extends Model
      * @var string[]
      */
     protected $hidden = [
+        'user_id',
+        'category_id',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
+
+
+    /**
+     * @var string[]
+     */
+    protected $appends = [
+        'category'
+    ];
+
 
     /**
      * @var string[]
@@ -72,5 +83,12 @@ class Hotel extends Model
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function getCategoryAttribute()
+    {
+        $category = $this->category()->get()->first()->name;
+
+        return $category;
     }
 }
