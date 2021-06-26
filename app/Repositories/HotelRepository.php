@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Hotel;
+use Illuminate\Support\Facades\Artisan;
 
 class HotelRepository extends BaseRepository
 {
@@ -31,6 +32,7 @@ class HotelRepository extends BaseRepository
         } catch (Exception $e) {
             return $e;
         }
+        Artisan::call('cache:clear');
 
         return $hotel;
     }
@@ -51,8 +53,21 @@ class HotelRepository extends BaseRepository
 
         $instance->fill($data);
         $instance->save();
+        Artisan::call('cache:clear');
 
         return $instance;
+    }
+
+    /**
+     * Need To Cache Clear
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id) {
+        $deleted = parent::delete($id);
+        Artisan::call('cache:clear');
+        return $deleted;
     }
 
     /**
