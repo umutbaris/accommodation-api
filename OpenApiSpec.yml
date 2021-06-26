@@ -161,7 +161,32 @@ paths:
     get:
       summary: Get Hotels
       operationId: GetHotels
-      parameters: []
+      parameters:
+        - in: query
+          name: rating
+          schema:
+            type: integer
+          description: Retrieve items with rating = X
+        - in: query
+          name: city
+          schema:
+            type: string
+          description: Retrieve items located in X city
+        - in: query
+          name: reputation_badge
+          schema:
+            type: string
+          description: Retrieve items with X reputationBadge
+        - in: query
+          name: availability
+          schema:
+            type: integer
+          description: Retrieve items with availability of more/less than X
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: Retrieve items with X category
       responses:
         '200':
           description: 'OK'
