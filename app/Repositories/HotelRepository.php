@@ -117,16 +117,16 @@ class HotelRepository extends BaseRepository
         }
 
         $instance = $this->getNewInstance();
+        $query= $instance->whereNotNull('id');
         if(array_key_exists('max-availability', $parameters)) {
-                $query = $instance->where('availability', '<', $parameters['max-availability']);
+                $query->where('availability', '<', $parameters['max-availability']);
                 unset($parameters['max-availability']);
         }
 
         if(array_key_exists('min-availability', $parameters)) {
-            $query = $instance->where('availability', '>', $parameters['min-availability']);
+            $query->where('availability', '>', $parameters['min-availability']);
             unset($parameters['min-availability']);
         }
-
 
         if(array_key_exists('city', $parameters)){
             $query = $this->filterByCity($parameters, $query);
