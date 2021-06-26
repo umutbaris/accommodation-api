@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Repositories\BaseRepository;
+use App\Repositories\CategoryRepository;
 use App\Repositories\HotelRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +16,8 @@ class HotelRepositoryTest extends TestCase
      */
     public function testCalculateReputationBadgeRed()
     {
-        $hotelRepository = new HotelRepository();
+        $categoryRepository = $this->createMock(CategoryRepository::class);
+        $hotelRepository = new HotelRepository($categoryRepository);
         $result = $hotelRepository->calculateReputationBadge(300);
         $this->assertEquals('red', $result);
     }
@@ -27,7 +29,8 @@ class HotelRepositoryTest extends TestCase
      */
     public function testCalculateReputationBadgeYellow()
     {
-        $hotelRepository = new HotelRepository();
+        $categoryRepository = $this->createMock(CategoryRepository::class);
+        $hotelRepository = new HotelRepository($categoryRepository);
         $result = $hotelRepository->calculateReputationBadge(501);
         $this->assertEquals('yellow', $result);
     }
@@ -39,7 +42,8 @@ class HotelRepositoryTest extends TestCase
      */
     public function testCalculateReputationBadgeGreen()
     {
-        $hotelRepository = new HotelRepository();
+        $categoryRepository = $this->createMock(CategoryRepository::class);
+        $hotelRepository = new HotelRepository($categoryRepository);
         $result = $hotelRepository->calculateReputationBadge(700);
         $this->assertEquals('yellow', $result);
     }
