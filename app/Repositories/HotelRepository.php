@@ -51,9 +51,8 @@ class HotelRepository extends BaseRepository
 
         $instance->fill($data);
         $instance->save();
-        return $instance;
 
-        return $hotel;
+        return $instance;
     }
 
     /**
@@ -103,10 +102,21 @@ class HotelRepository extends BaseRepository
         }
 
         $instance = $this->getNewInstance();
+        if(array_key_exists('max-availability', $parameters)) {
+                $query = $instance->where('availability', '<', $parameters['max-availability']);
+                unset($parameters['max-availability']);
+        }
+
+        if(array_key_exists('min-availability', $parameters)) {
+            $query = $instance->where('availability', '>', $parameters['min-availability']);
+            unset($parameters['min-availability']);
+        }
+
+
         if(array_key_exists('city', $parameters)){
-            $query = $this->filterCity($parameters, $instance);
+            $query = $this->filterByCity($parameters, $query);
         } else {
-            $query = $instance->where($parameters);
+            $query->where($parameters);
         }
 
         return $query->get();
@@ -147,11 +157,18 @@ class HotelRepository extends BaseRepository
         return $parameters;
     }
 
-    public function filterCity(array $parameters, Hotel $instance)
+    /**
+     * Filtering hotels result according to city
+     *
+     * @param  array  $parameters
+     * @param $query
+     * @return mixed
+     */
+    public function filterByCity(array $parameters, $query)
     {
         $city = $parameters['city'];
         unset($parameters['city']);
-        $qb = $instance->where($parameters);
+        $qb = $query->where($parameters);
 
         return  $qb->whereHas('location', function($query) use($city) {
             $query->where('city', $city);
