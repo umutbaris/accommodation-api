@@ -10,10 +10,20 @@ class HotelRepository extends BaseRepository
     protected $modelName = Hotel::class;
 
     /**
+     * HotelRepository constructor.
+     * @param  CategoryRepository  $categoryRepository
+     */
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    /**
      * @param  array  $data
      * @return mixed
      */
-    public function store($data) {
+    public function store($data)
+    {
         try {
             $data['reputation_badge'] = $this->calculateReputationBadge($data['reputation']);
             $hotel = parent::store($data);
@@ -24,12 +34,13 @@ class HotelRepository extends BaseRepository
 
         return $hotel;
     }
-    
+
     /**
      * @param  array  $data
      * @return mixed
      */
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         $instance = $this->find($id);
         if ($instance === null) {
             return null;
@@ -50,7 +61,8 @@ class HotelRepository extends BaseRepository
      * @param $userId
      * @return mixed
      */
-    public function findHotelWithAuthentication($id, $userId) {
+    public function findHotelWithAuthentication($id, $userId)
+    {
         $instance = $this->getNewInstance();
         return $instance->where(['id'=>$id, 'user_id'=>$userId])->get();
     }
@@ -63,7 +75,8 @@ class HotelRepository extends BaseRepository
      * @param  Integer  $reputation
      * @return string
      */
-    public function calculateReputationBadge(int $reputation) {
+    public function calculateReputationBadge(int $reputation)
+    {
         $reputationBadge = 'green';
         if($reputation <= 799) {
             $reputationBadge = 'yellow';
@@ -74,5 +87,74 @@ class HotelRepository extends BaseRepository
         }
 
         return $reputationBadge;
+    }
+
+    /**
+     * Hotels Fetching From Db According To Parameters Filters
+     *
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public function getHotelsWithFilters(array $parameters)
+    {
+        $parameters = $this->sanitizeParameters($parameters);
+        if(array_key_exists('category', $parameters)){
+            $parameters = $this->replaceCategoryKey($parameters);
+        }
+
+        $instance = $this->getNewInstance();
+        if(array_key_exists('city', $parameters)){
+            $query = $this->filterCity($parameters, $instance);
+        } else {
+            $query = $instance->where($parameters);
+        }
+
+        return $query->get();
+    }
+
+    /**
+     * Sanitize parameters permit only valid query params
+     *
+     * @param  array  $parameters
+     * @return array
+     */
+    public function sanitizeParameters(array $parameters)
+    {
+        $validFilters = explode(',', env('FILTERS'));
+        foreach ($parameters as $key => $parameter) {
+            if(!in_array($key, $validFilters)){
+                unset($parameters[$key]);
+            }
+        }
+
+        return $parameters;
+    }
+
+    /**
+     * Need to use hotel id into slug
+     *
+     * @param  array  $parameters
+     * @return array
+     */
+    public function replaceCategoryKey(array $parameters)
+    {
+        $categoryId = $this->categoryRepository->getCategoryIdFromSlug($parameters['category']);
+        if($categoryId){
+            $parameters['category_id'] = $categoryId;
+        }
+        unset($parameters['category']);
+
+        return $parameters;
+    }
+
+    public function filterCity(array $parameters, Hotel $instance)
+    {
+        $city = $parameters['city'];
+        unset($parameters['city']);
+        $qb = $instance->where($parameters);
+
+        return  $qb->whereHas('location', function($query) use($city) {
+            $query->where('city', $city);
+        });
     }
 }

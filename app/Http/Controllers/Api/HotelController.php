@@ -34,7 +34,12 @@ class HotelController extends BaseApiController
      */
     public function index(Request $request)
     {
-        $hotels = $this->hotelRepository->findBy('user_id', $request->user()->id);
+        if(isset($request->query) && !empty($request->query->all())){
+            $hotels = $this->hotelRepository->getHotelsWithFilters($request->query->all());
+        } else {
+            $hotels = $this->hotelRepository->findBy('user_id', $request->user()->id);
+        }
+
         return $this->sendSuccess($hotels);
     }
 

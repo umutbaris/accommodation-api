@@ -56,16 +56,4 @@ class BaseRepository {
         $model = $this->modelName;
         return new $model;
     }
-
-    public function onlyFields(Collection $collection, $fields = []) {
-        return $collection->transform(function($item, $key) use ($fields) {
-            return $item->only($fields);
-        });
-    }
-
-    public function first($relations = []) {
-        $instance = $this->getNewInstance();
-        return $instance->with($relations)->first();
-    }
-
 }
