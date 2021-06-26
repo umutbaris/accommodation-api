@@ -9,6 +9,7 @@ use App\Http\Requests\CreateHotelRequest;
 use App\Http\Requests\UpdateHotelRequest;
 use App\Repositories\HotelRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HotelController extends BaseApiController
 {
@@ -34,11 +35,13 @@ class HotelController extends BaseApiController
      */
     public function index(Request $request)
     {
-        if(isset($request->query) && !empty($request->query->all())){
-            $hotels = $this->hotelRepository->getHotelsWithFilters($request->query->all());
-        } else {
-            $hotels = $this->hotelRepository->findBy('user_id', $request->user()->id);
-        }
+        $hotels = Cache::remember('hotels' . $request->fullUrl() . $request->user()->id, 3600, function () use ($request) {
+            if(isset($request->query) && !empty($request->query->all())){
+                return $this->hotelRepository->getHotelsWithFilters($request->query->all());
+            } else {
+                return $this->hotelRepository->findBy('user_id', $request->user()->id);
+            }
+        });
 
         return $this->sendSuccess($hotels);
     }
