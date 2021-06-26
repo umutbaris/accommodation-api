@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.185.0",
+            "version": "3.185.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6c919bc226f7ff3fbcbce948f31e618066d02ad0"
+                "reference": "0e6ece3f9c4ab26bb20183c697fd36e1d55c1053"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6c919bc226f7ff3fbcbce948f31e618066d02ad0",
-                "reference": "6c919bc226f7ff3fbcbce948f31e618066d02ad0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0e6ece3f9c4ab26bb20183c697fd36e1d55c1053",
+                "reference": "0e6ece3f9c4ab26bb20183c697fd36e1d55c1053",
                 "shasum": ""
             },
             "require": {
@@ -92,9 +92,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.2"
             },
-            "time": "2021-06-23T18:21:07+00:00"
+            "time": "2021-06-25T18:19:14+00:00"
         },
         {
             "name": "brick/math",
@@ -1453,16 +1453,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.6.4",
+            "version": "1.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c3c8b7217c52572fb42aaf84211abccf75a151b2"
+                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c3c8b7217c52572fb42aaf84211abccf75a151b2",
-                "reference": "c3c8b7217c52572fb42aaf84211abccf75a151b2",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
+                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
                 "shasum": ""
             },
             "require": {
@@ -1550,7 +1550,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-19T20:08:14+00:00"
+            "time": "2021-06-26T11:57:13+00:00"
         },
         {
             "name": "league/flysystem",
