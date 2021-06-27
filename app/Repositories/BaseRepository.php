@@ -2,33 +2,36 @@
 
 namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Collection;
 
 class BaseRepository {
+
+    /**
+     * @var
+     */
     protected $modelName;
-    public function all($relations = []) {
+
+    public function all(array $relations = [])
+    {
         $instance = $this->getNewInstance();
         return $instance->with($relations)->get();
     }
 
-    public function find($id, $relations = []) {
+    public function find(int $id, array $relations = [])
+    {
         $instance = $this->getNewInstance();
         return $instance->with($relations)->find($id);
     }
 
-    public function paginate($count) {
-        $instance = $this->getNewInstance();
-        return $instance->paginate($count);
-    }
-
-    public function store($data) {
+    public function store(array $data)
+    {
         $instance = $this->getNewInstance();
         $instance->fill($data);
         $instance->save();
         return $instance;
     }
 
-    public function update($id, $data) {
+    public function update(int $id, array $data)
+    {
         $instance = $this->find($id);
         if ($instance === null) {
             return null;
@@ -38,7 +41,8 @@ class BaseRepository {
         return $instance;
     }
 
-    public function delete($id) {
+    public function delete(int $id)
+    {
         $instance = $this->find($id);
         if ($instance === null) {
             return null;
@@ -47,12 +51,14 @@ class BaseRepository {
         return $instance;
     }
 
-    public function findBy($field, $value, $relations = []) {
+    public function findBy(string $field, string $value, array $relations = [])
+    {
         $instance = $this->getNewInstance();
         return $instance->where($field, $value)->with($relations)->get();
     }
 
-    public function getNewInstance() {
+    public function getNewInstance()
+    {
         $model = $this->modelName;
         return new $model;
     }

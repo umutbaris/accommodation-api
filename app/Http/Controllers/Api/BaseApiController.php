@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
+use Illuminate\Http\JsonResponse;
 
 class BaseApiController extends Controller
 {
@@ -13,21 +13,19 @@ class BaseApiController extends Controller
 
     public function __construct(BaseRepository $baseRepository)
     {
-        $this->BaseRepository = $baseRepository;
+        $this->baseRepository = $baseRepository;
     }
 
-    public function sendRaw($data = [], $statusCode = 200) {
-        return response()->json($data, $statusCode);
-    }
-
-    public function sendSuccess($data = [], $statusCode = 200) {
+    public function sendSuccess($data = [], int $statusCode = 200): JsonResponse
+    {
         return response()->json([
             'success' => true,
             'data' => $data
         ], $statusCode);
     }
 
-    public function sendError($error, $statusCode = 400, $errorType='') {
+    public function sendError(string $error, int $statusCode = 400, string $errorType=''): JsonResponse
+    {
         $response = [
             'success' => false,
             'error' => $error
@@ -37,22 +35,5 @@ class BaseApiController extends Controller
             $response['errorType'] = $errorType;
         }
         return response()->json($response, $statusCode);
-    }
-
-    public function sendResponse($result) {
-        if(is_array($result) && array_key_exists('Error', $result)) {
-            return $this->sendError($result);
-        }
-
-        return $this->sendSuccess($result);
-    }
-
-    public function logActivity($description, $instance = null, $properties = [])
-    {
-        if ($instance!= null) $instance = $instance->getNewInstance();
-        activity()
-//            ->on($instance)
-            ->withProperties($properties)
-            ->log($description);
     }
 }
