@@ -43,16 +43,11 @@ class HotelRepository extends BaseRepository
      */
     public function update($id, $data)
     {
-        $instance = $this->find($id);
-        if ($instance === null) {
-            return null;
-        }
         if (isset($data['reputation'])) {
             $data['reputation_badge'] = $this->calculateReputationBadge($data['reputation']);
         }
 
-        $instance->fill($data);
-        $instance->save();
+        $instance = parent::update($id, $data);
         Artisan::call('cache:clear');
 
         return $instance;
@@ -67,6 +62,7 @@ class HotelRepository extends BaseRepository
     public function delete($id) {
         $deleted = parent::delete($id);
         Artisan::call('cache:clear');
+
         return $deleted;
     }
 
@@ -113,7 +109,8 @@ class HotelRepository extends BaseRepository
     {
         $parameters = $this->sanitizeParameters($parameters);
         if(array_key_exists('category', $parameters)){
-            $parameters = $this->replaceCategoryKey($parameters);
+            $parameters['category_id'] = $this->categoryRepository->getCategoryIdFromSlug($parameters['category']);
+            unset($parameters['category']);
         }
 
         $instance = $this->getNewInstance();
@@ -151,23 +148,6 @@ class HotelRepository extends BaseRepository
                 unset($parameters[$key]);
             }
         }
-
-        return $parameters;
-    }
-
-    /**
-     * Need to use hotel id into slug
-     *
-     * @param  array  $parameters
-     * @return array
-     */
-    public function replaceCategoryKey(array $parameters)
-    {
-        $categoryId = $this->categoryRepository->getCategoryIdFromSlug($parameters['category']);
-        if($categoryId){
-            $parameters['category_id'] = $categoryId;
-        }
-        unset($parameters['category']);
 
         return $parameters;
     }
