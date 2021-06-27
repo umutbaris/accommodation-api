@@ -4,11 +4,20 @@
 namespace App\Repositories;
 
 use App\Hotel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Artisan;
 
 class HotelRepository extends BaseRepository
 {
+    /**
+     * @var Collection
+     */
     protected $modelName = Hotel::class;
+
+    /**
+     * @var CategoryRepository
+     */
+    protected $categoryRepository;
 
     /**
      * HotelRepository constructor.
@@ -23,13 +32,13 @@ class HotelRepository extends BaseRepository
      * @param  array  $data
      * @return mixed
      */
-    public function store($data)
+    public function store(array $data): Hotel
     {
         try {
             $data['reputation_badge'] = $this->calculateReputationBadge($data['reputation']);
             $hotel = parent::store($data);
             $hotel->location()->create($data['location']);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             return $e;
         }
         Artisan::call('cache:clear');
@@ -37,11 +46,13 @@ class HotelRepository extends BaseRepository
         return $hotel;
     }
 
+
     /**
+     * @param  int  $id
      * @param  array  $data
-     * @return mixed
+     * @return mixed|null
      */
-    public function update($id, $data)
+    public function update(int $id, array $data): Hotel
     {
         if (isset($data['reputation'])) {
             $data['reputation_badge'] = $this->calculateReputationBadge($data['reputation']);
@@ -59,7 +70,8 @@ class HotelRepository extends BaseRepository
      * @param $id
      * @return mixed
      */
-    public function delete($id) {
+    public function delete($id)
+    {
         $deleted = parent::delete($id);
         Artisan::call('cache:clear');
 
@@ -71,21 +83,22 @@ class HotelRepository extends BaseRepository
      * @param $userId
      * @return mixed
      */
-    public function findHotelWithAuthentication($id, $userId)
+    public function findHotelWithAuthentication(int $id, int $userId): Collection
     {
         $instance = $this->getNewInstance();
         return $instance->where(['id'=>$id, 'user_id'=>$userId])->get();
     }
 
+
     /**
      * The reputation badge is a calculated value that depends on the reputation
      *
      * @todo Calculation part can change using like map according to range to make generic
-     * 
-     * @param  Integer  $reputation
+     *
+     * @param  int  $reputation
      * @return string
      */
-    public function calculateReputationBadge(int $reputation)
+    public function calculateReputationBadge(int $reputation): string
     {
         $reputationBadge = 'green';
         if($reputation <= 799) {
@@ -105,7 +118,7 @@ class HotelRepository extends BaseRepository
      * @param  array  $parameters
      * @return mixed
      */
-    public function getHotelsWithFilters(array $parameters)
+    public function getHotelsWithFilters(array $parameters): Collection
     {
         $parameters = $this->sanitizeParameters($parameters);
         if(array_key_exists('category', $parameters)){
@@ -140,7 +153,7 @@ class HotelRepository extends BaseRepository
      * @param  array  $parameters
      * @return array
      */
-    public function sanitizeParameters(array $parameters)
+    public function sanitizeParameters(array $parameters): array
     {
         $validFilters = explode(',', env('FILTERS'));
         foreach ($parameters as $key => $parameter) {

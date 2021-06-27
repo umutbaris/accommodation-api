@@ -75,18 +75,4 @@ class HotelRepositoryTest extends TestCase
 
         $this->assertEquals($expected, $result);
     }
-
-    /**
-     *  Test Sanitize Replace Category Key
-     *
-     */
-    public function testReplaceCategoryKey ()
-    {
-        $slug = 'hotel';
-        $hotelId = 1;
-        $categoryRepository = new CategoryRepository();
-        $result = $categoryRepository->getCategoryIdFromSlug($slug);
-
-        $this->assertEquals($hotelId, $result);
-    }
 }
