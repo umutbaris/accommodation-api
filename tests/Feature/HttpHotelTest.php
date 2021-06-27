@@ -2,15 +2,16 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Faker\Factory;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class HttpHotelTest extends TestCase
 {
     /**
-     * Test to api get all hotels
+     * Test to get all hotels
      *
      * @return void
      */
@@ -40,7 +41,7 @@ class HttpHotelTest extends TestCase
     }
 
     /**
-     * Test to api logout
+     * Test to update hotel
      *
      * @return void
      */
@@ -56,6 +57,54 @@ class HttpHotelTest extends TestCase
 
         $this->json('PUT', 'api/items/1', $body, $header)
             ->assertStatus(200);
+    }
+
+    /**
+     * Test to create hotel
+     *
+     * @return void
+     */
+    public function testCreateHotel()
+    {
+        $header = [
+            'Authorization' => 'Bearer ' . $this->loginToApi()
+        ];
+
+        $faker = Factory::create();
+        $body = [
+            "category_id"=> 1,
+            "name" => $faker->name,
+            "rating" => 0,
+            "reputation" => 900,
+            "availability" => 1,
+            "price" => 1,
+            "image" => "https://www.hotel.com",
+            "location" => [
+                "city"=> "Cuernavaca",
+                "state"=> "Morelos",
+                "country"=> "Mexico",
+                "zip_code"=> "12345"
+            ]
+        ];
+
+        $this->json('POST', 'api/items', $body, $header)
+            ->assertStatus(200);
+    }
+
+    /**
+     * Test to delete hotel
+     *
+     * @return void
+     */
+    public function testDeleteHotel()
+    {
+        $header = [
+            'Authorization' => 'Bearer ' . $this->loginToApi()
+        ];
+
+        $id = DB::table('hotels')->latest()->first()->id;
+        $this->json('DELETE', 'api/items/' . $id, [], $header)
+            ->assertStatus(204);
     }
 
     /**

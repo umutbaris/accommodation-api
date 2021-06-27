@@ -80,7 +80,7 @@ class HotelController extends BaseApiController
     {
         $request->merge(['user_id' => $request->user()->id]);
         $hotel = $this->hotelRepository->store($request->all());
-        return $this->sendSuccess($hotel, 201);
+        return $this->sendSuccess($hotel);
     }
 
     /**
