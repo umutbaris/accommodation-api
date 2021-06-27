@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreateHotelRequest;
 use App\Http\Requests\UpdateHotelRequest;
+use App\Repositories\BaseRepository;
 use App\Repositories\HotelRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,11 +20,19 @@ class HotelController extends BaseApiController
     protected $hotelRepository;
 
     /**
+     * @var
+     */
+    protected $baseRepository;
+
+
+    /**
      * HotelController constructor.
      * @param  HotelRepository  $hotelRepository
+     * @param  BaseRepository  $baseRepository
      */
-    public function __construct(HotelRepository $hotelRepository)
+    public function __construct(HotelRepository $hotelRepository,  BaseRepository $baseRepository)
     {
+        parent::__construct($baseRepository);
         $this->hotelRepository = $hotelRepository;
     }
 
