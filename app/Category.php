@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -29,8 +30,8 @@ class Category extends Model
     /**
      * Get the hotels for the category.
      */
-    public function hotels()
+    public function hotels(): HasMany
     {
-        return $this->hasMany(Hotels::class);
+        return $this->hasMany(Hotel::class);
     }
 }

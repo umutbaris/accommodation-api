@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -44,7 +44,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Get the location associated with the hotel.
      */
-    public function hotels()
+    public function hotels(): HasMany
     {
         return $this->hasMany(Hotel::class);
     }

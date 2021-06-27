@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Hotel extends Model
@@ -56,7 +59,7 @@ class Hotel extends Model
     /**
      * Get the user for the hotels.
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -64,7 +67,7 @@ class Hotel extends Model
     /**
      * Get the attributes for the hotels.
      */
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
@@ -72,7 +75,7 @@ class Hotel extends Model
     /**
      * Get the location associated with the hotel.
      */
-    public function location()
+    public function location(): HasOne
     {
         return $this->hasOne(Location::class);
     }
@@ -80,12 +83,12 @@ class Hotel extends Model
     /**
      * Get the location associated with the hotel.
      */
-    public function bookings()
+    public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
     }
 
-    public function getCategoryAttribute()
+    public function getCategoryAttribute(): string
     {
         $category = $this->category()->get()->first()->name;
 
