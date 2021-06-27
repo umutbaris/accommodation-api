@@ -4,10 +4,10 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Hotel;
 use App\Http\Requests\CreateHotelRequest;
 use App\Http\Requests\UpdateHotelRequest;
 use App\Repositories\HotelRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -31,11 +31,12 @@ class HotelController extends BaseApiController
      *
      * Get all the items for the given hotelier
      * @param  Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
-        $hotels = Cache::remember('hotels' . $request->fullUrl() . $request->user()->id, 3600, function () use ($request) {
+        $hotels = Cache::remember('hotels' . $request->fullUrl() . $request->user()->id, 3600, function () use ($request)
+        {
             if(isset($request->query) && !empty($request->query->all())){
                 return $this->hotelRepository->getHotelsWithFilters($request->query->all());
             } else {
@@ -46,13 +47,12 @@ class HotelController extends BaseApiController
         return $this->sendSuccess($hotels);
     }
 
-
     /**
      * @param  int  $id
      * @param  Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function show(int $id, Request $request)
+    public function show(int $id, Request $request): JsonResponse
     {
         $hotel = $this->hotelRepository->findHotelWithAuthentication($id, $request->user()->id);
         if ($hotel->isEmpty()){
@@ -65,9 +65,9 @@ class HotelController extends BaseApiController
      * Create new entries
      *
      * @param  CreateHotelRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function create(CreateHotelRequest $request)
+    public function create(CreateHotelRequest $request): JsonResponse
     {
         $request->merge(['user_id' => $request->user()->id]);
         $hotel = $this->hotelRepository->store($request->all());
@@ -79,9 +79,9 @@ class HotelController extends BaseApiController
      *
      * @param  int  $id
      * @param  UpdateHotelRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function update(int $id, UpdateHotelRequest $request)
+    public function update(int $id, UpdateHotelRequest $request): JsonResponse
     {
         $hotel = $this->hotelRepository->update($id, $request->all());
         return $this->sendSuccess($hotel);
@@ -91,9 +91,9 @@ class HotelController extends BaseApiController
      * Delete item
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         $hotel = $this->hotelRepository->delete($id);
         return $this->sendSuccess($hotel, 204);
