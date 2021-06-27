@@ -4,12 +4,15 @@
 namespace App\Services\Auth;
 
 
-use App\Services\Auth\JwtService;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
 
 class AuthService
 {
+    /**
+     * @var JwtService
+     */
+    private $jwtService;
 
     /**
      * AuthService constructor.
@@ -24,7 +27,7 @@ class AuthService
      * @param  array  $credentials
      * @return array[]
      */
-    public function loginUser(array $credentials)
+    public function loginUser(array $credentials): array
     {
         try {
             if (!$token = $this->jwtService->getToken($credentials)) {
@@ -50,12 +53,12 @@ class AuthService
 
 
     /**
-     * Successful login logging and perparing response
+     * Successful login logging and preparing response
      *
      * @param $token
      * @return array[]
      */
-    public function loginSuccessful($token)
+    public function loginSuccessful($token): array
     {
         $login_time = now();
         $expiration_time = strtotime($login_time) + env('JWT_TTL');
@@ -72,7 +75,7 @@ class AuthService
      * @param $token
      * @return array|array[]
      */
-    public function logoutUser($token)
+    public function logoutUser($token): array
     {
         try {
             // Attempt to invalidate the JWT token

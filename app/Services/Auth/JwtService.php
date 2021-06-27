@@ -15,7 +15,8 @@ class JwtService
      * @param  array  $credentials
      * @return mixed
      */
-    public function getToken(array $credentials) {
+    public function getToken(array $credentials)
+    {
         return JWTAuth::attempt($credentials);
     }
 
@@ -25,7 +26,8 @@ class JwtService
      * @param  string  $token
      * @return mixed
      */
-    public function parseToken(string $token) {
+    public function parseToken(string $token)
+    {
         return JWTAuth::parseToken()->invalidate($token);
     }
 }
