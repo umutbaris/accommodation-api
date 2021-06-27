@@ -13,8 +13,10 @@ class BookingService
      */
     protected $hotelRepository;
 
+
     /**
      * BookingService constructor.
+     * @param  HotelRepository  $hotelRepository
      */
     public function __construct(HotelRepository $hotelRepository)
     {
@@ -28,14 +30,14 @@ class BookingService
      * @param  int  $hotelId
      * @return bool
      */
-    public function checkAvailability(int $hotelId)
+    public function checkAvailability(int $hotelId): bool
     {
-        $avilability = $this->hotelRepository->find($hotelId)->availability;
-        if ($avilability < 1) {
+        $availability = $this->hotelRepository->find($hotelId)->availability;
+        if ($availability < 1) {
             return false;
         }
 
-        $this->updateAvailability($hotelId, $avilability);
+        $this->updateAvailability($hotelId, $availability);
 
         return true;
     }
@@ -46,7 +48,7 @@ class BookingService
      * @param  int  $hotelId
      * @param  int  $availability
      */
-    public function updateAvailability(int $hotelId, int $availability)
+    public function updateAvailability(int $hotelId, int $availability): void
     {
         $this->hotelRepository->update($hotelId, ['availability' => $availability - 1]);
     }
