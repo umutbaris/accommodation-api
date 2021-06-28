@@ -4,8 +4,6 @@ namespace App\Http\Requests;
 
 use App\Rules\BannedWords;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
 
 class CreateHotelRequest extends FormRequest
 {
@@ -14,7 +12,7 @@ class CreateHotelRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -24,7 +22,7 @@ class CreateHotelRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name'    =>  [
