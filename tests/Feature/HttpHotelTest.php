@@ -111,7 +111,8 @@ class HttpHotelTest extends TestCase
      * @return false|string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    protected function loginToApi() {
+    protected function loginToApi()
+    {
         $token = $this->checkExpiration();
         if ($token) {
             return $token;
@@ -122,11 +123,11 @@ class HttpHotelTest extends TestCase
             'password' => 'superuser123',
 
         ];
-
         $loginResponse = $this->json('POST', 'api/login', $body, ['Accept' => 'application/json'])->getData()->data;
         $token = $loginResponse->token;
         Storage::disk('local')->put('token.txt', $token);
         Storage::disk('local')->put('expiration.txt', $loginResponse->expiration);
+
         return $token;
     }
 
@@ -134,7 +135,8 @@ class HttpHotelTest extends TestCase
      * @return false|string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    protected function checkExpiration() {
+    protected function checkExpiration()
+    {
         if (Storage::disk('local')->has('token.txt') && Storage::disk('local')->has('expiration.txt')) {
             $expiration = trim(str_replace('(Coordinated Universal Time)', '', Storage::disk('local')->get('expiration.txt')));
             $expirationDate = \DateTime::createFromFormat('D M d Y H:i:s T', $expiration);
