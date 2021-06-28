@@ -27,7 +27,7 @@ class BookingController extends BaseApiController
     protected $bookingService;
 
     /**
-     * @var
+     * @var BaseRepository
      */
     protected $baseRepository;
 

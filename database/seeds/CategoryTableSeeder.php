@@ -13,7 +13,12 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-            "Hotel", "Alternative", "Hostel", "Lodge", "Resort", "Guest House"
+            "Hotel",
+            "Alternative",
+            "Hostel",
+            "Lodge",
+            "Resort",
+            "Guest House"
         ];
 
         foreach ($categories as $category) {

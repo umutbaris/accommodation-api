@@ -20,7 +20,7 @@ class HotelController extends BaseApiController
     protected $hotelRepository;
 
     /**
-     * @var
+     * @var BaseRepository
      */
     protected $baseRepository;
 
