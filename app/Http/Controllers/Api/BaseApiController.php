@@ -16,6 +16,11 @@ class BaseApiController extends Controller
         $this->baseRepository = $baseRepository;
     }
 
+    /**
+     * @param  array  $data
+     * @param  int  $statusCode
+     * @return JsonResponse
+     */
     public function sendSuccess($data = [], int $statusCode = 200): JsonResponse
     {
         return response()->json([
@@ -24,16 +29,16 @@ class BaseApiController extends Controller
         ], $statusCode);
     }
 
-    public function sendError(string $error, int $statusCode = 400, string $errorType=''): JsonResponse
+    /**
+     * @param  string  $error
+     * @param  int  $statusCode
+     * @return JsonResponse
+     */
+    public function sendError(string $error, int $statusCode = 400): JsonResponse
     {
-        $response = [
+        return response()->json([
             'success' => false,
             'error' => $error
-        ];
-
-        if(!empty($errorType)){
-            $response['errorType'] = $errorType;
-        }
-        return response()->json($response, $statusCode);
+        ], $statusCode);
     }
 }
