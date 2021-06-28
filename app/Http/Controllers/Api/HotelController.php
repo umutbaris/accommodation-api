@@ -24,9 +24,9 @@ class HotelController extends BaseApiController
      */
     protected $baseRepository;
 
-
     /**
      * HotelController constructor.
+     *
      * @param  HotelRepository  $hotelRepository
      * @param  BaseRepository  $baseRepository
      */
@@ -37,8 +37,8 @@ class HotelController extends BaseApiController
     }
 
     /**
-     *
      * Get all the items for the given hotelier
+     *
      * @param  Request  $request
      * @return JsonResponse
      */
@@ -57,6 +57,8 @@ class HotelController extends BaseApiController
     }
 
     /**
+     * Get single item
+     *
      * @param  int  $id
      * @param  Request  $request
      * @return JsonResponse
@@ -72,7 +74,7 @@ class HotelController extends BaseApiController
     }
 
     /**
-     * Create new entries
+     * Create new hotels
      *
      * @param  CreateHotelRequest  $request
      * @return JsonResponse

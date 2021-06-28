@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
 use App\Repositories\BaseRepository;
 use Illuminate\Http\JsonResponse;
 
 class BaseApiController extends Controller
 {
+    /**
+     * @var BaseRepository
+     */
     protected $baseRepository;
 
     public function __construct(BaseRepository $baseRepository)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\LogoutRequest;
+use App\Repositories\BaseRepository;
 use App\Services\Auth\AuthService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
@@ -22,10 +23,19 @@ class AuthController extends BaseApiController
     |
     */
 
+    /**
+     * @var AuthService
+     */
     protected $authService;
 
-    public function __construct(AuthService $authService)
+    /**
+     * @var BaseRepository
+     */
+    protected $baseRepository;
+
+    public function __construct(AuthService $authService, BaseRepository $baseRepository)
     {
+        parent::__construct($baseRepository);
         $this->authService = $authService;
     }
 
