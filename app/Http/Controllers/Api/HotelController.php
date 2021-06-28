@@ -67,6 +67,7 @@ class HotelController extends BaseApiController
         if ($hotel->isEmpty()){
             return $this->sendError('Unauthorized to see that item', 401);
         }
+
         return $this->sendSuccess($hotel);
     }
 
@@ -80,6 +81,7 @@ class HotelController extends BaseApiController
     {
         $request->merge(['user_id' => $request->user()->id]);
         $hotel = $this->hotelRepository->store($request->all());
+
         return $this->sendSuccess($hotel);
     }
 
@@ -93,6 +95,7 @@ class HotelController extends BaseApiController
     public function update(int $id, UpdateHotelRequest $request): JsonResponse
     {
         $hotel = $this->hotelRepository->update($id, $request->all());
+
         return $this->sendSuccess($hotel);
     }
 
@@ -105,6 +108,7 @@ class HotelController extends BaseApiController
     public function destroy(int $id): JsonResponse
     {
         $hotel = $this->hotelRepository->delete($id);
+
         return $this->sendSuccess($hotel, 204);
     }
 }

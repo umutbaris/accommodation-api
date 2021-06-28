@@ -36,7 +36,6 @@ class BookingService
         if ($availability < 1) {
             return false;
         }
-
         $this->updateAvailability($hotelId, $availability);
 
         return true;
