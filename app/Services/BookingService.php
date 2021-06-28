@@ -23,7 +23,6 @@ class BookingService
         $this->hotelRepository = $hotelRepository;
     }
 
-
     /**
      * Check enough reservation availability
      *
@@ -51,6 +50,4 @@ class BookingService
     {
         $this->hotelRepository->update($hotelId, ['availability' => $availability - 1]);
     }
-
-
 }

@@ -51,7 +51,6 @@ class AuthService
         return $this->loginSuccessful($token);
     }
 
-
     /**
      * Successful login logging and preparing response
      *
