@@ -13,7 +13,7 @@ class Location extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'hotel_id',
@@ -23,6 +23,10 @@ class Location extends Model
         'zip_code',
     ];
 
+    /**
+     *
+     * @var string[]
+     */
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -32,6 +36,8 @@ class Location extends Model
 
     /**
      * Get the hotel that owns the location.
+     *
+     * @return BelongsTo
      */
     public function hotel(): BelongsTo
     {

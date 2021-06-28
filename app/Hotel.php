@@ -58,6 +58,8 @@ class Hotel extends Model
 
     /**
      * Get the user for the hotels.
+     *
+     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -66,6 +68,8 @@ class Hotel extends Model
 
     /**
      * Get the attributes for the hotels.
+     *
+     * @return BelongsTo
      */
     public function category(): BelongsTo
     {
@@ -74,6 +78,8 @@ class Hotel extends Model
 
     /**
      * Get the location associated with the hotel.
+     *
+     * @return HasOne
      */
     public function location(): HasOne
     {
@@ -82,12 +88,19 @@ class Hotel extends Model
 
     /**
      * Get the location associated with the hotel.
+     *
+     * @return HasMany
      */
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
     }
 
+    /**
+     * Adding category name to response
+     *
+     * @return string
+     */
     public function getCategoryAttribute(): string
     {
         $category = $this->category()->get()->first()->name;

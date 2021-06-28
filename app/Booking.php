@@ -13,7 +13,7 @@ class Booking extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'hotel_id',
@@ -32,8 +32,11 @@ class Booking extends Model
         'deleted_at'
     ];
 
+
     /**
      * Get the hotel for the bookings.
+     *
+     * @return BelongsTo
      */
     public function hotel(): BelongsTo
     {

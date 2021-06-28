@@ -14,7 +14,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'email',
@@ -25,24 +25,28 @@ class User extends Authenticatable implements JWTSubject
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var string[]
      */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var string[]
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
+
     /**
      * Get the location associated with the hotel.
+     *
+     * @return HasMany
      */
     public function hotels(): HasMany
     {
