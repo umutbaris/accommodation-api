@@ -61,5 +61,4 @@ class BookingController extends BaseApiController
 
         return $this->sendSuccess($booking, 201);
     }
-
 }

@@ -29,7 +29,6 @@ class AuthController extends BaseApiController
         $this->authService = $authService;
     }
 
-
     /**
      * @param  LoginRequest  $request
      * @return JsonResponse
