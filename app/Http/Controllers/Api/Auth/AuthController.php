@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\LogoutRequest;
 use App\Services\Auth\AuthService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends BaseApiController
 {
@@ -31,9 +32,9 @@ class AuthController extends BaseApiController
 
     /**
      * @param  LoginRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         $loginResponse = $this->authService->loginUser($request->only('email', 'password'));
         if (isset($loginResponse['error'])) {
@@ -43,14 +44,13 @@ class AuthController extends BaseApiController
         return $this->sendSuccess($loginResponse['data']);
     }
 
-
     /**
      * @param  LogoutRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function logout(LogoutRequest $request)
+    public function logout(LogoutRequest $request): JsonResponse
     {
-        $logoutResponse = $this->authService->logoutUser($request->input('token'));
+        $logoutResponse = $this->authService->logoutUser($request->header('Authorization'));
 
         if (isset($logoutResponse['error'])) {
             return $this->sendError($logoutResponse['error']['message'], $logoutResponse['error']['status_code']);

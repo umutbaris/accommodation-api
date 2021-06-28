@@ -63,12 +63,14 @@ class HttpAuthTest extends TestCase
 
         ];
         $token = $this->json('POST', 'api/login', $body, ['Accept' => 'application/json'])->getData()->data->token;
-        $body = [
-            'token' => $token
+        $header = [
+            'Authorization' => 'Bearer ' . $token
         ];
 
-        $this->json('POST', 'api/logout', $body, ['Accept' => 'application/json'])
+        $this->json('POST', 'api/logout', [], $header)
             ->assertStatus(200);
+
+
     }
 
     /**

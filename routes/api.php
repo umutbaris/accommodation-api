@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\HotelController;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Api\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@ use App\Http\Controllers\Auth\AuthController;
 |
 */
 
-    Route::group(['namespace' => 'Auth'], function () {
+    Route::group(['namespace' => 'Api\Auth'], function () {
         /**
          * Login
          */
@@ -35,7 +35,7 @@ use App\Http\Controllers\Auth\AuthController;
      */
     Route::middleware('jwt.auth')->group(function () {
 
-        Route::group(['namespace' => 'Auth'], function () {
+        Route::group(['namespace' => 'Api\Auth'], function () {
             /**
              * Logout
              */
