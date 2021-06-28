@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Artisan;
 class HotelRepository extends BaseRepository
 {
     /**
-     * @var Collection
+     * @var Hotel
      */
     protected $modelName = Hotel::class;
 

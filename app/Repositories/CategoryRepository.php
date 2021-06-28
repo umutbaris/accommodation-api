@@ -8,14 +8,16 @@ use App\Category;
 
 class CategoryRepository extends BaseRepository
 {
+    /**
+     * @var Category
+     */
     protected $modelName = Category::class;
-
 
     /**
      * @param $slug
-     * @return array
+     * @return int
      */
-    public function getCategoryIdFromSlug($slug)
+    public function getCategoryIdFromSlug($slug): int
     {
         $instance = $this->getNewInstance();
         $categoryId = null;

@@ -5,8 +5,9 @@ namespace App\Repositories;
 
 class BaseRepository {
 
+
     /**
-     * @var
+     * @var String
      */
     protected $modelName;
 
