@@ -31,13 +31,16 @@ class BookingService
      */
     public function checkAvailability(int $hotelId): bool
     {
-        $availability = $this->hotelRepository->find($hotelId)->availability;
-        if ($availability < 1) {
-            return false;
+        $exist = false;
+        if(isset($this->hotelRepository->find($hotelId)->availability)) {
+            $availability = $this->hotelRepository->find($hotelId)->availability;
+            if ($availability > 0) {
+                $this->updateAvailability($hotelId, $availability);
+                $exist = true;
+            }
         }
-        $this->updateAvailability($hotelId, $availability);
 
-        return true;
+        return $exist;
     }
 
     /**
