@@ -74,19 +74,6 @@ paths:
                         "data" : []
                 }
           headers: {}
-      requestBody:
-        required: true
-        content:
-          text/plain:
-            schema:
-              type: string
-              example:
-                token: >-
-                  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvbG9naW4iLCJpYXQiOjE2MjQ1NDMyNDAsImV4cCI6MTYyNDU0Njg0MCwibmJmIjoxNjI0NTQzMjQwLCJqdGkiOiJPa1FOdTY3ZTlXNFptY2Y3Iiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.8DmX72ukhtqNLzcpVxNhtybnCZhVLHva0rtV_T0w540
-            example: |-
-              {
-                  "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvbG9naW4iLCJpYXQiOjE2MjQ1NDMyNDAsImV4cCI6MTYyNDU0Njg0MCwibmJmIjoxNjI0NTQzMjQwLCJqdGkiOiJPa1FOdTY3ZTlXNFptY2Y3Iiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.8DmX72ukhtqNLzcpVxNhtybnCZhVLHva0rtV_T0w540"
-              }
       tags:
         - Authentication
   /api/items:
