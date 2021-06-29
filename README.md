@@ -10,7 +10,7 @@
 
 ## 1. Installation
 
-- Clone The Project
+- Clone The Project (If you have zip skip this part)
 
    `git clone https://github.com/umutbaris/accommodation-api.git` 
 - Building Docker
@@ -36,5 +36,5 @@ You can reach the API details with the [OpenApiSpec.yml](https://github.com/umut
 ![DB_Schema](https://user-images.githubusercontent.com/22750208/123304008-194f4b80-d527-11eb-8663-0f90195b3f42.png)
 
 ## 4. Improvement Points
-- Laravel File Cache used for caching. It could be replace for Redis cache for further requirements.
+- Laravel File Cache used for caching. It could be replace with Redis cache for further requirements.
 
