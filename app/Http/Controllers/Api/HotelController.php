@@ -67,7 +67,7 @@ class HotelController extends BaseApiController
     {
         $hotel = $this->hotelRepository->findHotelWithAuthentication($id, $request->user()->id);
         if ($hotel->isEmpty()){
-            return $this->sendError('Unauthorized to see that item', 401);
+            return $this->sendError('Unauthorized to see this item', 401);
         }
 
         return $this->sendSuccess($hotel);
@@ -96,7 +96,13 @@ class HotelController extends BaseApiController
      */
     public function update(int $id, UpdateHotelRequest $request): JsonResponse
     {
+        $hotel = $this->hotelRepository->findHotelWithAuthentication($id, $request->user()->id);
+        if ($hotel->isEmpty()){
+            return $this->sendError('Unauthorized to update this item', 401);
+        }
+
         $hotel = $this->hotelRepository->update($id, $request->all());
+
 
         return $this->sendSuccess($hotel);
     }

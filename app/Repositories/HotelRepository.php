@@ -86,6 +86,7 @@ class HotelRepository extends BaseRepository
     public function findHotelWithAuthentication(int $id, int $userId): Collection
     {
         $instance = $this->getNewInstance();
+
         return $instance->where(['id'=>$id, 'user_id'=>$userId])->get();
     }
 
